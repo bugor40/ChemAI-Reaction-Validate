@@ -1,4 +1,4 @@
-FROM python:3.7-alpine
+FROM chembience/rdkit:0.4.0
 
 COPY . .
 
