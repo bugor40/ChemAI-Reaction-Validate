@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  file:
+    build:
+      dockerfile: ./user_client/Dockerfile
+    ports:
+      - '80:80'
+
+    
