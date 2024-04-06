@@ -1,8 +1,4 @@
-rdkit==2022.9.5
 fastapi
 uvicorn[standard]
 python-multipart
 templating
-pandas
-tqdm
-numpy

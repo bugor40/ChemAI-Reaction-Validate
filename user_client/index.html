@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
     <title>METANIT.COM</title>
@@ -19,5 +19,102 @@
         </p>
         <input type="submit" value="Send" />
     </form>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Химическая реакция</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .additional-inputs {
+            display: none;
+        }
+        .show-additional-inputs {
+            display: block;
+            margin-bottom: 10px;
+            color: blue;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Химическая реакция</h1>
+    <form action="result" method="post">
+        <label for="reactants">Исходные соединения (от 2 до 9):</label><br>
+        <input type="text" id="reactant1" name="reactive" required><br>
+        <input type="text" id="reactant2" name="reactive" required><br>
+        <div id="additional-inputs"></div>
+        <div class="show-additional-inputs" onclick="showAdditionalInputs()">Добавить ещё</div>
+        <label for="product">Продукт реакции:</label><br>
+        <input type="text" id="product" name="product" required><br><br>
+        <input type="submit" value="Расчитать вероятность получения продукта">
+    </form>
+</div>
+
+<script>
+    var additionalInputsCount = 0;
+
+    function showAdditionalInputs() {
+        if (additionalInputsCount < 7) { // Проверяем, что количество добавленных полей меньше 7 (всего может быть 9)
+            additionalInputsCount++;
+            var additionalInputs = document.getElementById('additional-inputs');
+            var input = document.createElement('input');
+            input.type = 'text';
+            input.id = 'reactant' + (additionalInputsCount + 2);
+            input.name = 'reactive';
+            input.required = true;
+            additionalInputs.appendChild(input);
+            additionalInputs.appendChild(document.createElement('br'));
+        } else {
+            alert("Нельзя добавить больше 9 исходных соединений.");
+        }
+    }
+</script>
+
 </body>
 </html>
