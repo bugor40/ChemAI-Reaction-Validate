@@ -1,6 +1,6 @@
 # подготовка данных 
 import pandas as pd
-from rdkit_description.rdkit_features import RDKit_2D, MACCS, ECFP6
+from reaction_predicter.features.rdkit_description.rdkit_features import RDKit_2D, MACCS, ECFP6
 
 def build_dataset(smiles: list):
 

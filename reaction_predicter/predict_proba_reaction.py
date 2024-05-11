@@ -8,12 +8,16 @@ from reaction_predicter.features.prepare_test_feature import build_dataset
 def get_probability_one(
         reactive: list,
         product: str
-) -> float:
+):
     
     model = tipo_obuchenie()
     feature = build_dataset(reactive)
 
-    proba = feature.iloc[:, 1:].sum() * model
+    print(model)
+    print(feature)
+    
+
+    proba = model
 
     time.sleep(10)
     return {"reaction": f"{'+'.join(reactive)} = {product}", 'proba': proba}

@@ -1,5 +1,5 @@
 # pull official base image
-FROM python:3.11.2-slim-buster
+FROM python:3.10.14-bullseye
 
 WORKDIR /usr/src/app
 
