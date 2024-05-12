@@ -13,3 +13,5 @@ flower==1.2.0
 pandas
 rdkit
 tqdm
+redis
+boto3

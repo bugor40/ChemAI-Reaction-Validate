@@ -7,7 +7,7 @@ from reaction_predicter.features.prepare_test_feature import build_dataset
 
 def get_probability_one(
         reactive: list,
-        product: str
+        product: str,
 ):
     
     model = tipo_obuchenie()

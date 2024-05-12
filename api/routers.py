@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Form, Request
+from fastapi import APIRouter, Form, Request, Depends
 from fastapi.responses import FileResponse
 from fastapi.templating import Jinja2Templates
 
@@ -16,9 +16,9 @@ def root():
 def postdata(
     request: Request, 
     reactive: list = Form(), 
-    product=Form()
+    product=Form(),
 ):
-     url = '158.160.60.224' #'chem-ai.ru' #'0.0.0.0:80'
+     url = '0.0.0.0:80' #'158.160.60.224' #'chem-ai.ru'
      task_id = get_probability_task.delay(reactive, product).id
      return templates.TemplateResponse(
                 "api/index/index_go.html",
@@ -51,6 +51,8 @@ async def get_probability_status(
                 "proba": proba
             }
         )
+    elif task_status == 'FAILURE':
+        return 'Error Process'
     else:
         result = templates.TemplateResponse(
                 "api/index/index_output_progres.html",

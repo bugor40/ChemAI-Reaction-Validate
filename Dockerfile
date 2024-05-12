@@ -1,6 +1,9 @@
 # pull official base image
 FROM python:3.10.14-bullseye
 
+COPY ./.aws/credentials /root/.aws/credentials
+COPY ./.aws/config /root/.aws/config
+
 WORKDIR /usr/src/app
 
 ENV PYTHONDONTWRITEBYTECODE 1
