@@ -15,3 +15,7 @@ rdkit
 tqdm
 redis
 boto3
+scipy==1.10.1
+sentence_transformers
+karateclub
+git+https://github.com/samoturk/mol2vec

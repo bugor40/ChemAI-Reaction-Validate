@@ -1,5 +1,5 @@
 # pull official base image
-FROM python:3.10.14-bullseye
+FROM python:3.9.19-bullseye
 
 COPY ./.aws/credentials /root/.aws/credentials
 COPY ./.aws/config /root/.aws/config

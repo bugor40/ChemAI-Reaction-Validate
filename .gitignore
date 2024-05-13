@@ -1,1 +1,4 @@
 ~/__pycache__
+.aws/
+graph2vec_model.pkl
+model_300dim.pkl
