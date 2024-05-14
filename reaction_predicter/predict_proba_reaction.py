@@ -1,8 +1,9 @@
-import time
 import pandas as pd
 import redis
 
-from reaction_predicter.catboost_train.train import tipo_obuchenie
+from catboost import CatBoostClassifier
+
+from reaction_predicter.catboost_train.train import fit_model
 from reaction_predicter.features.prepare_test_feature import build_dataset
 
 
@@ -16,13 +17,11 @@ def get_probability_one(
     
     redis_client = get_redis_connection()
     
-    model = tipo_obuchenie(redis_client)
+    model = fit_model(redis_client, product)
     feature = build_dataset(reactive, redis_client)
 
-    print(model)
-    print(feature)
+    print(feature.shape)
 
-    proba = feature.shape
+    proba = round(model.predict_proba(feature)[0, -1], 2)
 
-    time.sleep(10)
     return {"reaction": f"{'+'.join(reactive)} = {product}", 'proba': proba}

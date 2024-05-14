@@ -18,7 +18,7 @@ def postdata(
     reactive: list = Form(), 
     product=Form(),
 ):
-     url = '0.0.0.0:80' #'158.160.60.224' #'chem-ai.ru'
+     url = '62.84.112.149' #'0.0.0.0:80' #'chem-ai.ru'
      task_id = get_probability_task.delay(reactive, product).id
      return templates.TemplateResponse(
                 "api/index/index_go.html",

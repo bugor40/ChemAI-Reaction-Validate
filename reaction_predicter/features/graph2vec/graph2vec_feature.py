@@ -16,16 +16,16 @@ class Graph2VecPredicter:
     def __init__(self, molel_name, redis_client):
 
         def load_graph2vec_model():
-            # Попытка загрузить модель из кэша
-            cached_model = redis_client.get('graph2vec_model')
-            if cached_model:
-                # Если модель найдена в кэше, десериализуем ее
-                return pickle.loads(cached_model)
-            else:
-                # Если модель не найдена, загрузите ее из файла или другого источника данных
-                # и сохраните в кэш Redis
+            # # Попытка загрузить модель из кэша
+            # cached_model = redis_client.get('graph2vec_model')
+            # if cached_model:
+            #     # Если модель найдена в кэше, десериализуем ее
+            #     return pickle.loads(cached_model)
+            # else:
+            #     # Если модель не найдена, загрузите ее из файла или другого источника данных
+            #     # и сохраните в кэш Redis
                 model = joblib.load(molel_name)  # Пример загрузки модели
-                redis_client.set('graph2vec_model', pickle.dumps(model))
+                # redis_client.set('graph2vec_model', pickle.dumps(model))
                 return model
 
 # Получение модели graph2vec

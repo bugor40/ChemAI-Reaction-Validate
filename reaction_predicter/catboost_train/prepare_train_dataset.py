@@ -15,13 +15,18 @@ class DataSet:
         feature_table_name = 'data_reaction'
         target_table_name = 'data_product'
 
-        cached_table = redis_client.get(feature_table_name)
+        cached_table_reactive = redis_client.get(feature_table_name)
+        cached_table_target = redis_client.get(target_table_name)
 
-        if cached_table is not None:
+        if cached_table_reactive is not None:
             # Если таблица есть в кэше, возвращаем её
-            cached_table_json = cached_table.decode('utf-8')
-            cached_data = json.loads(cached_table_json)
-            self.dataframe = pd.DataFrame(cached_data)
+            cached_table_json_reactive = cached_table_reactive.decode('utf-8')
+            cached_data_reactive = json.loads(cached_table_json_reactive)
+            self.df_reactive = pd.DataFrame(cached_data_reactive)
+
+            cached_table_json_target = cached_table_target.decode('utf-8')
+            cached_data_target = json.loads(cached_table_json_target)
+            self.df_product = pd.DataFrame(cached_data_target)
         else:
             session = boto3.session.Session()
             s3 = session.client(
@@ -47,10 +52,10 @@ class DataSet:
 
     def target_prepare(self, reqest_product):
         ecfp6 = ECFP6([reqest_product])
-        vec_reqest_product = list(ecfp6.compute_ECFP6('smiles', nBits = 512).drop('smiles', axis = 1).iloc[0])
+        vec_reqest_product = list(ecfp6.compute_ECFP6('smiles', nBits = 512).iloc[0])
 
         target = []
-        for i in self.df_product.shape[0]:
+        for i in range(self.df_product.shape[0]):
             target.append(self.tanimoto_similarity(list(self.df_product.iloc[i]), vec_reqest_product))
 
         series_target = pd.Series(target)
@@ -60,4 +65,4 @@ class DataSet:
         return binary_target
 
     def feature_prepare(self):
-        return self.dataframe
+        return self.df_reactive
