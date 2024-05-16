@@ -1,8 +1,10 @@
 # обучение модели
+import pandas as pd
 from reaction_predicter.catboost_train.prepare_train_dataset import DataSet
 from catboost import CatBoostClassifier
 
 from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
 
 def fit_model(redis_client, product):
     dataset_obj = DataSet(redis_client)
@@ -30,5 +32,10 @@ def fit_model(redis_client, product):
         verbose = 1,
         early_stopping_rounds=300,
     )
+
+    train_pred = clf.predict_proba(X_train)[:, -1]
+
+    linear_clf = LogisticRegression()
+    linear_clf.fit(pd.DataFrame(train_pred), y_train)
     
-    return clf
+    return clf, linear_clf

@@ -17,11 +17,11 @@ def get_probability_one(
     
     redis_client = get_redis_connection()
     
-    model = fit_model(redis_client, product)
+    model, linear_model = fit_model(redis_client, product)
     feature = build_dataset(reactive, redis_client)
 
-    print(feature.shape)
+    proba_boost = model.predict_proba(feature)[0, -1]
+    proba = linear_model.predict_proba(pd.DataFrame([proba_boost]))[0, -1]
+    proba = f'{round(proba, 2) * 100}%'
 
-    proba = round(model.predict_proba(feature)[0, -1], 2)
-
-    return {"reaction": f"{'+'.join(reactive)} = {product}", 'proba': proba}
+    return {"reaction": f"{' + '.join(reactive)} = {product}", 'proba': proba}
