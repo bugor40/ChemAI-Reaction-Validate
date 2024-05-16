@@ -1,9 +1,0 @@
-fastapi
-uvicorn[standard]
-python-multipart
-templating
-rdkit-pypi
-pandas
-tqdm
-numpy
-pyspark
