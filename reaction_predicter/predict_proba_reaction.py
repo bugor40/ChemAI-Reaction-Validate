@@ -24,4 +24,4 @@ def get_probability_one(
     proba = linear_model.predict_proba(pd.DataFrame([proba_boost]))[0, -1]
     proba = f'{round(proba, 2) * 100}%'
 
-    return {"reaction": f"{' + '.join(reactive)} = {product}", 'proba': proba}
+    return {"reaction": f"{' + '.join(reactive)} >> {product}", 'proba': proba}
