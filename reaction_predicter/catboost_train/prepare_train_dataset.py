@@ -34,11 +34,11 @@ class DataSet:
                 endpoint_url='https://storage.yandexcloud.net'
                 )
 
-            data_reactive = s3.get_object(Bucket='data-proc-baket',Key='dataframe_10k.tsv')['Body'].read().decode('utf-8')
+            data_reactive = s3.get_object(Bucket='data-proc-baket',Key='dataframe.tsv')['Body'].read().decode('utf-8')
             self.df_reactive = pd.read_table(io.StringIO(data_reactive))
             redis_client.set(feature_table_name, self.df_reactive.to_json())
 
-            data_product = s3.get_object(Bucket='data-proc-baket',Key='vec_prod_10k.tsv')['Body'].read().decode('utf-8')
+            data_product = s3.get_object(Bucket='data-proc-baket',Key='vec_prod.tsv')['Body'].read().decode('utf-8')
             self.df_product = pd.read_table(io.StringIO(data_product))
             redis_client.set(target_table_name, self.df_product.to_json())
 
